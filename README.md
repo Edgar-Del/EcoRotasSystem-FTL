@@ -1,22 +1,22 @@
-# 🌍 EcoRota Angola - Sistema Inteligente de Ecoturismo
+# EcoRota Angola - Sistema Inteligente de Ecoturismo
 
 [![Python](https://img.shields.io/badge/Python-3.10+-blue.svg)](https://python.org)
 [![License](https://img.shields.io/badge/License-MIT-green.svg)](LICENSE)
 [![Status](https://img.shields.io/badge/Status-Production%20Ready-brightgreen.svg)]()
 
-## 📋 Visão Geral
+## Visão Geral
 
-O **EcoRota Angola** é um sistema avançado de **Machine Learning** para recomendação de rotas de ecoturismo sustentável em Angola. O sistema combina algoritmos de otimização, inteligência artificial e análise geográfica para oferecer recomendações personalizadas que equilibram sustentabilidade ambiental, custo-benefício e experiência cultural.
+O **EcoRota Angola** é um sistema de **Machine Learning** para recomendação de rotas de ecoturismo sustentável em Angola. O sistema combina algoritmos de optimização, inteligência artificial e análise geográfica para oferecer recomendações personalizadas que equilibram sustentabilidade ambiental, custo-benefício e experiência cultural.
 
-### 🎯 Objetivos Principais
+### Objectivos Principais
 
 - ✅ **Sustentabilidade Ambiental**: Prioriza locais com baixa fragilidade ecológica
 - ✅ **Personalização Inteligente**: Usa ML para adaptar recomendações ao perfil do usuário
-- ✅ **Otimização de Rotas**: Minimiza distâncias e custos usando algoritmos avançados
+- ✅ **Optimização de Rotas**: Minimiza distâncias e custos usando algoritmos avançados
 - ✅ **Visualização Interativa**: Mapas e relatórios detalhados
-- ✅ **Escalabilidade**: Arquitetura modular para futuras expansões
+- ✅ **Escalabilidade**: Arquitectura modular para futuras expansões
 
-## 🏗️ Arquitetura do Sistema
+## Arquitetura do Sistema
 
 ### Componentes Principais
 
@@ -46,33 +46,33 @@ EcoRota Angola/
 └── main.py                   # Executável principal
 ```
 
-### 🤖 Algoritmos de Machine Learning
+### Algoritmos de Machine Learning
 
 #### 1. Modelo de Previsão de Ratings
 - **Algoritmo**: Gradient Boosting Regressor
 - **Features**: Idade, orçamento, preferências, características dos locais
 - **Performance**: R² Score > 0.75, RMSE < 0.5
-- **Objetivo**: Prever rating 1-5 que usuário daria a um local
+- **Objectivo**: Prever rating 1-5 que usuário daria a um local
 
 #### 2. Sistema de Clustering
 - **Algoritmo**: K-Means com features engenheiradas
-- **Features**: Coordenadas, fragilidade, capacidade, custo, atratividade
+- **Features**: Coordenadas, fragilidade, capacidade, custo, atractividade
 - **Clusters**: 6-8 grupos geográficos e ambientais
-- **Objetivo**: Diversificar rotas e agrupar locais similares
+- **Objectivo**: Diversificar rotas e agrupar locais similares
 
 #### 3. Filtragem Colaborativa
 - **Algoritmo**: Similaridade Coseno + Nearest Neighbors
 - **Dados**: 1000+ usuários sintéticos com perfis diversos
-- **Objetivo**: Encontrar usuários similares e recomendar locais
+- **Objectivo**: Encontrar usuários similares e recomendar locais
 - **Aplicação**: Sistema de recomendação baseado em comportamento
 
 #### 4. Feature Engineering
 - **Sustentabilidade Score**: Inversão da escala de fragilidade
 - **Acessibilidade**: Baseada na distância de Luanda
-- **Atratividade Composta**: Combinação ponderada de múltiplos fatores
+- **Atractividade Composta**: Combinação ponderada de múltiplos factores
 - **Capacidade Relativa**: Normalização da capacidade de carga
 
-## 🚀 Instalação e Configuração
+## Instalação e Configuração
 
 ### Pré-requisitos
 
@@ -168,7 +168,7 @@ user_profile = {
 rotas_personalizadas = sistema_ml.generate_ml_routes(user_profile)
 ```
 
-## 📊 Dataset
+## Dataset
 
 ### Estrutura dos Dados
 
@@ -193,7 +193,7 @@ O sistema utiliza um dataset com **25 locais de ecoturismo** em Angola:
 - **Cachoeiras**: Kalandula, Ruacaná, Binga, Tundavala
 - **Áreas de Conservação**: Mupa, Cameia, Quissama
 
-## 🎯 Algoritmos de Recomendação
+## Algoritmos de Recomendação
 
 ### Sistema Tradicional
 
@@ -205,12 +205,12 @@ O sistema utiliza um dataset com **25 locais de ecoturismo** em Angola:
 2. **Clustering Geográfico**
    - Agrupa locais por proximidade usando K-Means
    - Evita rotas muito dispersas
-   - Otimiza logística de viagem
+   - Optimiza logística de viagem
 
 3. **Algoritmo do Vizinho Mais Próximo**
    - Minimiza distância total da rota
    - Considera coordenadas geográficas reais
-   - Otimiza sequência de visitas
+   - Optimiza sequência de visitas
 
 4. **Score de Sustentabilidade**
    ```
@@ -229,12 +229,12 @@ O sistema utiliza um dataset com **25 locais de ecoturismo** em Angola:
    - Recomenda locais bem avaliados por usuários similares
    - Aprende com padrões de comportamento
 
-3. **Otimização Inteligente**
+3. **Optimização Inteligente**
    - Combina múltiplos critérios de otimização
    - Balanceia sustentabilidade e experiência
    - Considera contexto geográfico e sazonal
 
-## 📈 Métricas de Performance
+## Métricas de Performance
 
 ### Modelo de ML
 - **R² Score**: 0.75+ (explica 75% da variância)
@@ -248,7 +248,7 @@ O sistema utiliza um dataset com **25 locais de ecoturismo** em Angola:
 - **Precisão Geográfica**: ±100m para cálculos de distância
 - **Diversidade**: Rotas em múltiplas províncias e ecossistemas
 
-## 🗺️ Saídas do Sistema
+## Saídas do Sistema
 
 ### 1. Mapa Interativo (HTML)
 - Visualização de todas as rotas recomendadas
@@ -276,7 +276,7 @@ Dados completos e detalhados:
 - Métricas de performance
 - Metadados do sistema
 
-## 🔧 Configuração Avançada
+## Configuração Avançada
 
 ### Arquivo de Configuração
 
@@ -312,9 +312,9 @@ export ECOROTA_OUTPUT_PATH=outputs/
 export ECOROTA_ML_MODELS_PATH=models/
 ```
 
-## 🧪 Testes
+## Testes
 
-### Executar Testes
+### Executar Testes (Por implementar)
 
 ```bash
 # Todos os testes
@@ -335,78 +335,3 @@ python -m pytest --cov=src tests/
 - **Testes de Integração**: Validação de fluxos completos
 - **Testes de Performance**: Validação de tempos de resposta
 - **Testes de ML**: Validação de modelos e métricas
-
-## 📚 Documentação Técnica
-
-### API Reference
-
-```python
-class EcoTurismoSystem:
-    def __init__(self, config=None, use_ml: bool = True)
-    def load_data(self, file_path: Optional[Path] = None) -> pd.DataFrame
-    def generate_traditional_routes(self, **kwargs) -> List[Dict[str, Any]]
-    def generate_ml_routes(self, user_profile: Dict[str, Any], **kwargs) -> List[Dict[str, Any]]
-    def create_interactive_map(self, save_html: bool = True) -> folium.Map
-    def generate_csv_report(self, filename: str = None) -> Path
-    def generate_json_report(self, filename: str = None) -> Path
-```
-
-### Extensibilidade
-
-O sistema foi projetado para ser facilmente extensível:
-
-1. **Novos Algoritmos**: Implementar interfaces para novos algoritmos de ML
-2. **Novas Fontes de Dados**: Adicionar suporte a APIs e bancos de dados
-3. **Novas Interfaces**: Criar interfaces para mobile, desktop, etc.
-4. **Novos Critérios**: Adicionar critérios de sustentabilidade
-
-## 🤝 Contribuição
-
-### Como Contribuir
-
-1. Fork do repositório
-2. Criar branch para feature (`git checkout -b feature/nova-funcionalidade`)
-3. Commit das mudanças (`git commit -am 'Adiciona nova funcionalidade'`)
-4. Push para branch (`git push origin feature/nova-funcionalidade`)
-5. Abrir Pull Request
-
-### Padrões de Código
-
-- **PEP 8**: Seguir padrões de estilo Python
-- **Type Hints**: Usar anotações de tipo
-- **Docstrings**: Documentar todas as funções e classes
-- **Testes**: Escrever testes para novas funcionalidades
-- **Logging**: Usar sistema de logging para debug
-
-## 📄 Licença
-
-Este projeto está sob licença MIT. Veja o arquivo [LICENSE](LICENSE) para mais detalhes.
-
-## 🏆 Reconhecimentos
-
-- **Hackathon FTL 2024**: Plataforma para desenvolvimento
-- **Angola**: Riqueza natural e biodiversidade
-- **Comunidade Open Source**: Bibliotecas e ferramentas utilizadas
-
-## 📞 Suporte
-
-### Contato
-
-- **Email**: suporte@ecorota-angola.com
-- **GitHub Issues**: Para bugs e feature requests
-- **Documentação**: [docs/](docs/) para guias detalhados
-
-### FAQ
-
-**P: Como adicionar novos locais ao sistema?**
-R: Edite o arquivo `data/locais_ecoturismo_angola.csv` seguindo o formato existente.
-
-**P: Como personalizar os algoritmos de ML?**
-R: Modifique os parâmetros em `config/settings.py` na seção `MLConfig`.
-
-**P: Como integrar com sistemas externos?**
-R: Use a API programática ou implemente novos adaptadores em `src/adapters/`.
-
----
-
-*Desenvolvido com ❤️ para promover o ecoturismo sustentável em Angola*
