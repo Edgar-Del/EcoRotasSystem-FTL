@@ -116,6 +116,22 @@ class EcoRotaLogger:
         self.component_name = component_name
         self.logger = get_logger(f"ecorota.{component_name}")
     
+    def info(self, message: str):
+        """Log de informação genérico."""
+        self.logger.info(message)
+    
+    def warning(self, message: str):
+        """Log de aviso genérico."""
+        self.logger.warning(message)
+    
+    def error(self, message: str):
+        """Log de erro genérico."""
+        self.logger.error(message)
+    
+    def debug(self, message: str):
+        """Log de debug genérico."""
+        self.logger.debug(message)
+    
     def system_start(self, version: str = "1.0.0"):
         """Log de inicialização do sistema."""
         self.logger.info(f"🚀 Sistema EcoRota Angola v{version} iniciado")

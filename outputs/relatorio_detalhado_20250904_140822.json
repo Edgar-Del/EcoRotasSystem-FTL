@@ -1,0 +1,24 @@
+[
+  {
+    "nome": "Rota Personalizada 1",
+    "locais": [
+      {
+        "local_id": 9,
+        "nome": "Cachoeiras de Binga",
+        "provincia": "Benguela",
+        "latitude": -12.5833,
+        "longitude": 13.4167,
+        "fragilidade": 2,
+        "taxa_aoa": 14000,
+        "rating_previsto": 3.9831404905686756,
+        "tipo_ecosistema": "floresta"
+      }
+    ],
+    "num_locais": 1,
+    "distancia_total_km": 0,
+    "custo_total_aoa": 14000,
+    "rating_medio_previsto": 3.98,
+    "fragilidade_media": 2.0,
+    "score_personalizado": 3.58
+  }
+]

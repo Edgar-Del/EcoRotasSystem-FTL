@@ -19,7 +19,15 @@ from streamlit_folium import st_folium
 import plotly.express as px
 import plotly.graph_objects as go
 import numpy as np
-from ecoturismo_system import EcoTurismoSystem
+import sys
+from pathlib import Path
+
+# Adicionar diretório raiz ao path para imports
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root))
+
+from src.core.ecoturismo_system import EcoTurismoSystem
+from config.settings import get_config
 import json
 
 
@@ -36,7 +44,7 @@ def main():
     
     # Título principal
     st.title("🤖 EcoRota Angola - Sistema Inteligente")
-    st.subtitle("Machine Learning para Recomendações Personalizadas de Ecoturismo")
+    st.subheader("Machine Learning para Recomendações Personalizadas de Ecoturismo")
     
     st.markdown("""
     ### 🧠 Sobre o Sistema Inteligente

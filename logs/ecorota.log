@@ -1,0 +1,45 @@
+2025-09-04 13:33:27 - ecorota.main - INFO - 🚀 Sistema EcoRota Angola v1.0.0 iniciado
+2025-09-04 13:33:28 - ecorota.main - ERROR - ❌ Erro em validação: Ambiente inválido
+2025-09-04 13:33:28 - ecorota.main - INFO - 🛑 Sistema EcoRota Angola finalizado
+2025-09-04 13:36:34 - ecorota.main - INFO - 🚀 Sistema EcoRota Angola v1.0.0 iniciado
+2025-09-04 13:36:36 - ecorota.main - ERROR - ❌ Erro em demonstração: 'EcoRotaLogger' object has no attribute 'info'
+2025-09-04 13:36:36 - ecorota.main - INFO - 🛑 Sistema EcoRota Angola finalizado
+2025-09-04 13:37:18 - ecorota.main - INFO - 🚀 Sistema EcoRota Angola v1.0.0 iniciado
+2025-09-04 13:37:20 - ecorota.main - INFO - Executando demonstração completa...
+2025-09-04 13:37:20 - ecorota.main - ERROR - ❌ Erro em demonstração: Features derivadas inconsistentes
+2025-09-04 13:37:20 - ecorota.main - INFO - 🛑 Sistema EcoRota Angola finalizado
+2025-09-04 13:50:19 - ecorota.main - INFO - 🚀 Sistema EcoRota Angola v1.0.0 iniciado
+2025-09-04 13:50:20 - ecorota.main - INFO - Executando demonstração completa...
+2025-09-04 13:50:20 - ecorota.main - ERROR - ❌ Erro em demonstração: Features derivadas inconsistentes
+2025-09-04 13:50:20 - ecorota.main - INFO - 🛑 Sistema EcoRota Angola finalizado
+2025-09-04 14:00:58 - ecorota.main - INFO - 🚀 Sistema EcoRota Angola v1.0.0 iniciado
+2025-09-04 14:01:00 - ecorota.main - INFO - Executando demonstração completa...
+2025-09-04 14:01:00 - ecorota.main - ERROR - ❌ Erro em demonstração: 'MLRecommendationEngine' object has no attribute 'load_data'
+2025-09-04 14:01:00 - ecorota.main - INFO - 🛑 Sistema EcoRota Angola finalizado
+2025-09-04 14:04:00 - ecorota.main - INFO - 🚀 Sistema EcoRota Angola v1.0.0 iniciado
+2025-09-04 14:04:01 - ecorota.main - INFO - Executando demonstração completa...
+2025-09-04 14:04:02 - ecorota.main - ERROR - ❌ Erro em demonstração: 'MLRecommendationEngine' object has no attribute 'create_features_engineering'
+2025-09-04 14:04:02 - ecorota.main - INFO - 🛑 Sistema EcoRota Angola finalizado
+2025-09-04 14:05:13 - ecorota.main - INFO - 🚀 Sistema EcoRota Angola v1.0.0 iniciado
+2025-09-04 14:05:14 - ecorota.main - INFO - Executando demonstração completa...
+2025-09-04 14:05:20 - ecorota.main - ERROR - ❌ Erro em demonstração: 'MLRecommendationEngine' object has no attribute 'save_models'
+2025-09-04 14:05:20 - ecorota.main - INFO - 🛑 Sistema EcoRota Angola finalizado
+2025-09-04 14:06:13 - ecorota.main - INFO - 🚀 Sistema EcoRota Angola v1.0.0 iniciado
+2025-09-04 14:06:14 - ecorota.main - INFO - Executando demonstração completa...
+2025-09-04 14:06:20 - ecorota.main - INFO - 🛑 Sistema EcoRota Angola finalizado
+2025-09-04 14:07:01 - ecorota.main - INFO - 🚀 Sistema EcoRota Angola v1.0.0 iniciado
+2025-09-04 14:07:02 - ecorota.main - INFO - Executando sistema com ML...
+2025-09-04 14:07:02 - ecorota.main - INFO - 📊 Dados carregados: 24 registros de CSV
+2025-09-04 14:07:08 - ecorota.main - ERROR - ❌ Erro em sistema ML: X has 5 features, but KMeans is expecting 9 features as input.
+2025-09-04 14:07:08 - ecorota.main - INFO - 🛑 Sistema EcoRota Angola finalizado
+2025-09-04 14:08:15 - ecorota.main - INFO - 🚀 Sistema EcoRota Angola v1.0.0 iniciado
+2025-09-04 14:08:16 - ecorota.main - INFO - Executando sistema com ML...
+2025-09-04 14:08:16 - ecorota.main - INFO - 📊 Dados carregados: 24 registros de CSV
+2025-09-04 14:08:22 - ecorota.main - INFO - 🗺️ Rotas geradas: 1 rotas (ML)
+2025-09-04 14:08:22 - ecorota.main - INFO - 🗺️ Mapa criado: 24 locais, 1 rotas
+2025-09-04 14:08:22 - ecorota.main - INFO - 📋 Relatório CSV gerado: relatorio_rotas_20250904_140822.csv
+2025-09-04 14:08:22 - ecorota.main - INFO - 📋 Relatório JSON gerado: relatorio_detalhado_20250904_140822.json
+2025-09-04 14:08:22 - ecorota.main - INFO - 🛑 Sistema EcoRota Angola finalizado
+2025-09-04 14:11:08 - ecorota.main - INFO - 🚀 Sistema EcoRota Angola v1.0.0 iniciado
+2025-09-04 14:11:09 - ecorota.main - INFO - Iniciando interface web...
+2025-09-04 14:12:11 - ecorota.main - INFO - 🛑 Sistema EcoRota Angola finalizado

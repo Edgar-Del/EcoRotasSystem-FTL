@@ -9,8 +9,8 @@ Este módulo contém a classe DataProcessor responsável por:
 - Criação de features derivadas
 - Validação de integridade dos dados
 
-Autor: Sistema EcoRota Angola
-Data: 2024
+Autor: Equipa 01 - UNDP FTL
+Data: 2025
 """
 
 import pandas as pd
@@ -248,6 +248,10 @@ class DataProcessor:
             self.df['sustentabilidade_score'] = (
                 self.config.data.max_fragilidade - self.df['fragilidade'] + 1
             )
+            # Normalização para [0, 1] para uso em composições de score
+            self.df['sustentabilidade_norm'] = (
+                self.df['sustentabilidade_score'] / self.config.data.max_fragilidade
+            )
             
             # Capacidade relativa
             max_capacidade = self.df['capacidade_diaria'].max()
@@ -261,10 +265,10 @@ class DataProcessor:
             max_distancia = self.df['distancia_luanda'].max()
             self.df['acessibilidade_score'] = 1 - (self.df['distancia_luanda'] / max_distancia)
             
-            # Score de atratividade composta
+            # Score de atratividade composta (mantido em [0, 1])
             weights = self.config.ml.feature_weights
             self.df['atratividade_score'] = (
-                weights['sustentabilidade'] * self.df['sustentabilidade_score'] +
+                weights['sustentabilidade'] * self.df['sustentabilidade_norm'] +
                 weights['capacidade'] * self.df['capacidade_relativa'] +
                 weights['acessibilidade'] * self.df['acessibilidade_score'] +
                 weights['custo'] * (1 - self.df['custo_relativo'])
@@ -278,15 +282,15 @@ class DataProcessor:
     
     def _optimize_data_types(self) -> None:
         """
-        Otimiza tipos de dados para melhor performance.
+        Optimiza tipos de dados para melhor performance.
         
-        Otimizações:
+        Optimizações:
         - Conversão de floats para tipos menores quando possível
         - Uso de categorias para strings repetitivas
-        - Otimização de índices
+        - Optimização de índices
         """
         try:
-            logger.debug("Otimizando tipos de dados...")
+            logger.debug("Optimizando tipos de dados...")
             
             # Converter colunas categóricas
             categorical_columns = ['provincia', 'tipo_ecosistema']
@@ -294,7 +298,7 @@ class DataProcessor:
                 if col in self.df.columns:
                     self.df[col] = self.df[col].astype('category')
             
-            # Otimizar tipos numéricos
+            # Optimizar tipos numéricos
             numeric_columns = self.df.select_dtypes(include=[np.number]).columns
             for col in numeric_columns:
                 if self.df[col].dtype == 'float64':
@@ -448,17 +452,17 @@ if __name__ == "__main__":
     try:
         # Carregar dados
         df = processor.load_data()
-        print(f"✅ Dados carregados: {len(df)} registros")
+        print(f"Dados carregados: {len(df)} registros")
         
         # Obter estatísticas
         stats = processor.get_statistics()
-        print(f"📊 Estatísticas: {stats['total_locations']} locais, {stats['provinces']} províncias")
+        print(f"Estatísticas: {stats['total_locations']} locais, {stats['provinces']} províncias")
         
         # Filtrar locais sustentáveis
         sustainable = processor.get_sustainable_locations()
-        print(f"🌱 Locais sustentáveis: {len(sustainable)}")
+        print(f"Locais sustentáveis: {len(sustainable)}")
         
-        print("✅ Teste do processador concluído com sucesso!")
+        print("Teste do processador concluído com sucesso!")
         
     except Exception as e:
-        print(f"❌ Erro no teste: {e}")
+        print(f"Erro no teste: {e}")

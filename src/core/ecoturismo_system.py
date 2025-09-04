@@ -1,17 +1,13 @@
 #!/usr/bin/env python3
-"""
-Sistema Principal EcoRota Angola
-===============================
+""" 
+EcoRota Angola - UNDP FTL
 
 Este módulo contém a classe principal do sistema de recomendação de rotas
 de ecoturismo sustentável, integrando todos os componentes do sistema:
 - Processamento de dados
-- Otimização de rotas
+- Optimização de rotas
 - Sistema de ML
 - Geração de visualizações
-
-Autor: Sistema EcoRota Angola
-Data: 2024
 """
 
 import pandas as pd
@@ -35,19 +31,18 @@ logger = logging.getLogger(__name__)
 
 class EcoTurismoSystem:
     """
-    Sistema principal para recomendação de rotas de ecoturismo sustentável.
     
     Esta classe orquestra todos os componentes do sistema:
     - Carregamento e processamento de dados
-    - Geração de rotas otimizadas
+    - Geração de rotas optimizadas
     - Sistema de ML para personalização
     - Criação de visualizações e relatórios
     
     Atributos:
         config: Configurações do sistema
         data_processor: Processador de dados
-        route_optimizer: Otimizador de rotas
-        ml_engine: Motor de ML (opcional)
+        route_optimizer: Optimizador de rotas
+        ml_engine: Motor de ML
         geo_calc: Calculadora geográfica
         formatter: Formatador de dados
         df: DataFrame principal com dados processados
@@ -57,7 +52,7 @@ class EcoTurismoSystem:
     def __init__(self, config=None, use_ml: bool = True):
         """
         Inicializa o sistema de ecoturismo.
-        
+
         Args:
             config: Instância de configuração. Se None, usa configuração global.
             use_ml: Se deve usar sistema de ML para recomendações personalizadas.
@@ -78,7 +73,7 @@ class EcoTurismoSystem:
         self.geo_calc = GeographicCalculator(self.config.data.luanda_coords)
         self.formatter = DataFormatter(self.config)
         
-        # Sistema de ML (opcional)
+        # Sistema de ML 
         self.ml_engine = None
         if self.use_ml:
             self.ml_engine = MLRecommendationEngine(self.config)
@@ -100,7 +95,7 @@ class EcoTurismoSystem:
         2. Validação de dados
         3. Limpeza e normalização
         4. Criação de features derivadas
-        5. Otimização de tipos de dados
+        5. Optimização de tipos de dados
         
         Args:
             file_path: Caminho para o arquivo CSV. Se None, usa configuração padrão.
@@ -124,7 +119,7 @@ class EcoTurismoSystem:
             # Carregar dados usando o processador
             self.df = self.data_processor.load_data(file_path)
             
-            # Inicializar ML engine se habilitado
+            # Inicializar ML engine se estiver habilitado
             if self.use_ml and self.ml_engine:
                 self.ml_engine.load_data()
                 logger.info("Dados carregados no motor de ML")
@@ -146,12 +141,12 @@ class EcoTurismoSystem:
                                   max_fragility: int = None,
                                   num_routes: int = None) -> List[Dict[str, Any]]:
         """
-        Gera rotas recomendadas usando algoritmo tradicional.
-        
+        Gera rotas recomendadas usando algoritmo tradicional, isto é sem usar ML. 
+    
         Este método implementa o algoritmo original de recomendação:
         1. Filtragem por critérios de sustentabilidade
         2. Clustering geográfico de locais
-        3. Otimização de rotas com algoritmo do vizinho mais próximo
+        3. Optimização de rotas com algoritmo do vizinho mais próximo
         4. Cálculo de scores de sustentabilidade
         5. Seleção das melhores rotas
         
@@ -207,7 +202,7 @@ class EcoTurismoSystem:
             
             logger.info(f"Locais filtrados: {len(filtered_df)}")
             
-            # Gerar rotas usando o otimizador
+            # Gerar rotas usando o optimizador
             routes = self.route_optimizer.generate_routes(
                 df=filtered_df,
                 max_locations=max_locations,
@@ -238,7 +233,7 @@ class EcoTurismoSystem:
         2. Treinamento do modelo (se necessário)
         3. Previsão de ratings para locais
         4. Geração de rotas personalizadas
-        5. Otimização baseada em preferências
+        5. Optimização baseada em preferências
         
         Args:
             user_profile: Dicionário com perfil do usuário
@@ -264,10 +259,10 @@ class EcoTurismoSystem:
             >>> rotas = sistema.generate_ml_routes(user_profile)
         """
         try:
-        if not self.use_ml or not self.ml_engine:
+            if not self.use_ml or not self.ml_engine:
                 raise ValueError("Sistema de ML não habilitado. Use use_ml=True na inicialização.")
-        
-        if self.df is None:
+            
+            if self.df is None:
                 raise ValueError("Dados não carregados. Execute load_data() primeiro.")
             
             # Validar perfil do usuário
@@ -282,15 +277,15 @@ class EcoTurismoSystem:
             
             logger.info(f"Gerando rotas ML: perfil={user_profile['idade']} anos, "
                        f"orçamento={max_budget}, locais={max_locations}")
-        
-        # Treinar modelo se necessário
-        if self.ml_engine.rating_model is None:
+            
+            # Treinar modelo se necessário
+            if self.ml_engine.rating_model is None:
                 logger.info("Treinando modelo de ML...")
                 self._train_ml_model()
-        
-        # Gerar rotas personalizadas
+            
+            # Gerar rotas personalizadas
             routes = self.ml_engine.generate_personalized_routes(
-            user_profile=user_profile,
+                user_profile=user_profile,
                 max_budget=max_budget,
                 max_locations=max_locations,
                 num_routes=num_routes
@@ -349,7 +344,7 @@ class EcoTurismoSystem:
         
         Este método gera um mapa Folium com:
         - Marcadores para cada local (coloridos por fragilidade)
-        - Linhas de rota otimizadas
+        - Linhas de rota optimizadas
         - Popups informativos
         - Legenda de fragilidade
         - Controles interativos
@@ -444,11 +439,11 @@ class EcoTurismoSystem:
         
         popup_text = self.formatter.format_route_popup(route)
         
-            folium.PolyLine(
+        folium.PolyLine(
             coordinates,
             color=color,
-                weight=3,
-                opacity=0.8,
+            weight=3,
+            opacity=0.8,
             popup=folium.Popup(popup_text, max_width=300)
         ).add_to(self.map_base)
     
@@ -573,34 +568,34 @@ class EcoTurismoSystem:
         """
         try:
             if not self.recommended_routes:
-            print("❌ Nenhuma rota recomendada disponível.")
-            return
-        
-        print("\n" + "="*80)
-        print("🌍 RESUMO DAS ROTAS DE ECOTURISMO RECOMENDADAS - ANGOLA")
-        print("="*80)
-        
+                print("Nenhuma rota recomendada disponível.")
+                return
+            
+            print("\n" + "="*80)
+            print("RESUMO DAS ROTAS DE ECOTURISMO RECOMENDADAS - ANGOLA")
+            print("="*80)
+            
             for i, route in enumerate(self.recommended_routes, 1):
-                print(f"\n📍 ROTA {i}: {route['nome']}")
-                print(f"   🏃 Distância Total: {route['distancia_total_km']} km")
-                print(f"   💰 Custo Total: {route['custo_total_aoa']:,} AOA")
-                print(f"   🌱 Fragilidade Média: {route['fragilidade_media']}/5")
+                print(f"\nROTA {i}: {route['nome']}")
+                print(f"  Distância Total: {route['distancia_total_km']} km")
+                print(f"  Custo Total: {route['custo_total_aoa']:,} AOA")
+                print(f"  Fragilidade Média: {route['fragilidade_media']}/5")
                 
                 if 'score' in route:
-                    print(f"   ⭐ Score: {route['score']}")
+                    print(f"   Score: {route['score']}")
                 elif 'rating_medio_previsto' in route:
-                    print(f"   ⭐ Rating ML: {route['rating_medio_previsto']}")
+                    print(f"   Rating ML: {route['rating_medio_previsto']}")
                 
-                print(f"   🗺️  Províncias: {', '.join(route.get('provincias', []))}")
-                print(f"   🌿 Ecossistemas: {', '.join(route.get('tipos_ecosistema', []))}")
-                print(f"   📍 Locais ({route['num_locais']}):")
+                print(f"   Províncias: {', '.join(route.get('provincias', []))}")
+                print(f"   Ecossistemas: {', '.join(route.get('tipos_ecosistema', []))}")
+                print(f"   Locais ({route['num_locais']}):")
                 
                 for j, local in enumerate(route['locais'], 1):
-                print(f"      {j}. {local['nome']} ({local['provincia']}) - {local['taxa_aoa']:,} AOA")
-        
-        print("\n" + "="*80)
-        print("💡 Dica: Abra o arquivo HTML gerado para visualizar as rotas no mapa interativo!")
-        print("="*80)
+                    print(f"      {j}. {local['nome']} ({local['provincia']}) - {local['taxa_aoa']:,} AOA")
+            
+            print("\n" + "="*80)
+            print("Dica: Abra o arquivo HTML gerado para visualizar as rotas no mapa interativo!")
+            print("="*80)
 
         except Exception as e:
             logger.error(f"Erro ao imprimir resumo: {e}")
@@ -619,7 +614,7 @@ if __name__ == "__main__":
     try:
     # Carregar dados
         df = sistema.load_data()
-        print(f"✅ Dados carregados: {len(df)} locais")
+        print(f"Dados carregados: {len(df)} locais")
         
         # Gerar rotas tradicionais
         rotas = sistema.generate_traditional_routes(
@@ -627,21 +622,21 @@ if __name__ == "__main__":
             max_locations=5,
             num_routes=3
         )
-        print(f"✅ Rotas geradas: {len(rotas)}")
+        print(f"Rotas geradas: {len(rotas)}")
         
         # Criar mapa
         mapa = sistema.criar_mapa_interativo()
-        print("✅ Mapa criado")
+        print("Mapa criado")
     
     # Gerar relatórios
         csv_file = sistema.generate_csv_report()
         json_file = sistema.generate_json_report()
-        print(f"✅ Relatórios gerados: {csv_file.name}, {json_file.name}")
+        print(f"Relatórios gerados: {csv_file.name}, {json_file.name}")
     
     # Imprimir resumo
         sistema.print_route_summary()
         
-        print("✅ Teste do sistema concluído com sucesso!")
+        print("Teste do sistema concluído com sucesso!")
         
     except Exception as e:
-        print(f"❌ Erro no teste: {e}")
+        print(f"Erro no teste: {e}")

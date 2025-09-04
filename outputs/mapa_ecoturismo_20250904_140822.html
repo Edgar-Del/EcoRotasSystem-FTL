@@ -1,0 +1,183 @@
+otchi<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_64df1d066518f647841ea69b31798b7f {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+
+            <style>html, body {
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+            }
+            </style>
+
+            <style>#map {
+                position:absolute;
+                top:0;
+                bottom:0;
+                right:0;
+                left:0;
+                }
+            </style>
+
+            <script>
+                L_NO_TOUCH = false;
+                L_DISABLE_3D = false;
+            </script>
+
+        
+</head>
+<body>
+    
+    
+        <div style="position: fixed; 
+                    bottom: 50px; left: 50px; width: 200px; height: 120px; 
+                    background-color: white; border:2px solid grey; z-index:9999; 
+                    font-size:14px; padding: 10px">
+        <p><b>Legenda:</b></p>
+        <p><i class="fa fa-leaf" style="color:green"></i> Fragilidade 1-2 (Baixa)</p>
+        <p><i class="fa fa-leaf" style="color:orange"></i> Fragilidade 3 (Média)</p>
+        <p><i class="fa fa-leaf" style="color:red"></i> Fragilidade 4 (Alta)</p>
+        </div>
+        
+    
+            <div class="folium-map" id="map_64df1d066518f647841ea69b31798b7f" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_64df1d066518f647841ea69b31798b7f = L.map(
+                "map_64df1d066518f647841ea69b31798b7f",
+                {
+                    center: [-12.5, 17.5],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 6,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_cc96f85f91cdb7ca498f7cfba5baea35 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_cc96f85f91cdb7ca498f7cfba5baea35.addTo(map_64df1d066518f647841ea69b31798b7f);
+        
+    
+            var marker_7da31c6f0dad588c85a1f5eb0dad9f40 = L.marker(
+                [-12.5833, 13.4167],
+                {
+}
+            ).addTo(map_64df1d066518f647841ea69b31798b7f);
+        
+    
+            var icon_ee68a8e403dfefc6927e10e55fb28ec7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "leaf",
+  "prefix": "fa",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c2b926c3c6f74c62f288115110434fed = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_89ef7b721aee7ec8192b5b61a3c6e3de = $(`<div id="html_89ef7b721aee7ec8192b5b61a3c6e3de" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; max-width: 300px;">                 <h3 style="color: #2E8B57; margin: 0 0 10px 0;">Cachoeiras de Binga</h3>                                  <div style="margin-bottom: 8px;">                     <strong>📍 Província:</strong> Benguela                 </div>                                  <div style="margin-bottom: 8px;">                     <strong>🌿 Tipo:</strong> floresta                 </div>                                  <div style="margin-bottom: 8px;">                     <strong>🌱 Fragilidade:</strong> 2/5 🟢 Baixa                 </div>                                  <div style="margin-bottom: 8px;">                     <strong>👥 Capacidade:</strong> N/A pessoas/dia                 </div>                                  <div style="margin-bottom: 8px;">                     <strong>💰 Taxa:</strong> 14K AOA                 </div>                                  <div style="margin-top: 10px; font-style: italic; color: #666;">                     Sem descrição disponível                 </div>             </div>             </div>`)[0];
+                popup_c2b926c3c6f74c62f288115110434fed.setContent(html_89ef7b721aee7ec8192b5b61a3c6e3de);
+            
+        
+
+        marker_7da31c6f0dad588c85a1f5eb0dad9f40.bindPopup(popup_c2b926c3c6f74c62f288115110434fed)
+        ;
+
+        
+    
+    
+            marker_7da31c6f0dad588c85a1f5eb0dad9f40.bindTooltip(
+                `<div>
+                     Cachoeiras de Binga (Fragilidade: 2)
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_7da31c6f0dad588c85a1f5eb0dad9f40.setIcon(icon_ee68a8e403dfefc6927e10e55fb28ec7);
+            
+    
+            var poly_line_f1ef73452860a4dd63105b95ee76ceff = L.polyline(
+                [[-12.5833, 13.4167]],
+                {"bubblingMouseEvents": true, "color": "red", "dashArray": null, "dashOffset": null, "fill": false, "fillColor": "red", "fillOpacity": 0.2, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "noClip": false, "opacity": 0.8, "smoothFactor": 1.0, "stroke": true, "weight": 3}
+            ).addTo(map_64df1d066518f647841ea69b31798b7f);
+        
+    
+        var popup_8a185869b41de15ccb8d4779c3eab41c = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5ae785efb65da27f9dc64beeb9b6c482 = $(`<div id="html_5ae785efb65da27f9dc64beeb9b6c482" style="width: 100.0%; height: 100.0%;">             <div style="font-family: Arial, sans-serif; max-width: 300px;">                 <h3 style="color: #2E8B57; margin: 0 0 10px 0;">Rota Personalizada 1</h3>                                  <div style="margin-bottom: 8px;">                     <strong>🏃 Distância:</strong> 0.0 km                 </div>                                  <div style="margin-bottom: 8px;">                     <strong>💰 Custo Total:</strong> 14K AOA                 </div>                                  <div style="margin-bottom: 8px;">                     <strong>🌱 Fragilidade Média:</strong> 2.0/5                 </div>                                  <div style="margin-bottom: 8px;">                     <strong>📍 Locais:</strong> 1                 </div>                                  <div style="margin-bottom: 8px;"><strong>🤖 Rating ML:</strong> 4.0/5</div>                                  <div style="margin-top: 10px; font-size: 12px; color: #666;">                     Clique nos marcadores para ver detalhes dos locais                 </div>             </div>             </div>`)[0];
+                popup_8a185869b41de15ccb8d4779c3eab41c.setContent(html_5ae785efb65da27f9dc64beeb9b6c482);
+            
+        
+
+        poly_line_f1ef73452860a4dd63105b95ee76ceff.bindPopup(popup_8a185869b41de15ccb8d4779c3eab41c)
+        ;
+
+        
+    
+</script>
+</html>

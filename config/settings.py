@@ -292,7 +292,7 @@ def validate_environment() -> bool:
         
         # Verificar dependências Python
         required_packages = [
-            'pandas', 'numpy', 'scikit-learn', 'folium', 
+            'pandas', 'numpy', 'sklearn', 'folium', 
             'haversine', 'streamlit', 'plotly', 'joblib'
         ]
         

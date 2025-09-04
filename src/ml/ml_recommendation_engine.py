@@ -10,8 +10,8 @@ de rotas de ecoturismo baseado em:
 - Características dos locais
 - Feedback de usuários similares
 
-Autor: Sistema EcoRota Angola
-Data: 2024
+Autor: Equipa 01 - UNDP FTL
+Data: 2025
 """
 
 import pandas as pd
@@ -40,7 +40,19 @@ class MLRecommendationEngine:
         Args:
             csv_file: Caminho para o arquivo CSV com dados dos locais
         """
-        self.csv_file = csv_file
+        # Permitir passar Config ou caminho string
+        try:
+            from config.settings import Config
+        except Exception:
+            Config = None  # type: ignore
+
+        if Config is not None and isinstance(csv_file, Config):
+            # Recebemos a Config do sistema
+            self.config = csv_file
+            self.csv_file = str(self.config.get_data_path())
+        else:
+            self.config = None
+            self.csv_file = csv_file
         self.df = None
         self.scaler = StandardScaler()
         self.label_encoders = {}
@@ -57,21 +69,21 @@ class MLRecommendationEngine:
         """Carrega e prepara os dados para ML."""
         try:
             self.df = pd.read_csv(self.csv_file)
-            print(f"✅ Dados carregados para ML: {len(self.df)} locais")
+            print(f"Dados carregados para ML: {len(self.df)} locais")
             return self.df
         except Exception as e:
-            print(f"❌ Erro ao carregar dados: {e}")
+            print(f"Erro ao carregar dados: {e}")
             return None
     
     def criar_features_engenharia(self) -> pd.DataFrame:
         """
-        Cria features avançadas para o modelo de ML.
+        Cria features para o modelo de ML.
         
         Returns:
-            DataFrame com features engenheiradas
+            DataFrame com features
         """
         if self.df is None:
-            print("❌ Dados não carregados.")
+            print("Dados não carregados.")
             return None
         
         df_features = self.df.copy()
@@ -114,9 +126,92 @@ class MLRecommendationEngine:
             0.1 * (1 - df_features['custo_relativo'])
         )
         
-        print(f"🔧 Features criadas: {df_features.shape[1]} colunas")
+        print(f"Features criadas: {df_features.shape[1]} colunas")
         return df_features
     
+    # ---- Aliases para compatibilidade com o orquestrador ----
+    def load_data(self) -> pd.DataFrame:
+        """Alias de carregar_dados para compatibilidade."""
+        return self.carregar_dados()
+
+    def generate_personalized_routes(self, user_profile: Dict,
+                                     max_budget: float = 20000,
+                                     max_locations: int = 6,
+                                     num_routes: int = 5) -> List[Dict]:
+        """Alias de gerar_rotas_personalizadas para compatibilidade."""
+        return self.gerar_rotas_personalizadas(
+            user_profile=user_profile,
+            orcamento_max=max_budget,
+            max_locais=max_locations,
+            n_rotas=num_routes
+        )
+
+    def create_features_engineering(self) -> pd.DataFrame:
+        """Alias de criar_features_engenharia para compatibilidade."""
+        return self.criar_features_engenharia()
+
+    def create_synthetic_users(self, n_users: int = 1000) -> pd.DataFrame:
+        """Alias de criar_dados_sinteticos_usuarios para compatibilidade."""
+        return self.criar_dados_sinteticos_usuarios(n_users)
+
+    def train_rating_model(self, df_users: pd.DataFrame) -> Dict:
+        """Alias de treinar_modelo_rating para compatibilidade."""
+        return self.treinar_modelo_rating(df_users)
+
+    def create_location_clusters(self, df_features: pd.DataFrame) -> Dict:
+        """Alias de criar_clusters_locais para compatibilidade."""
+        return self.criar_clusters_locais(df_features)
+
+    def save_models(self) -> None:
+        """Salva modelos treinados em disco se possível."""
+        try:
+            base_path = None
+            if self.config is not None:
+                # Usar caminho padrão de modelos da Config
+                base_path = self.config.get_model_path("base").parent
+            else:
+                from pathlib import Path
+                base_path = Path("models")
+            base_path.mkdir(parents=True, exist_ok=True)
+
+            if self.rating_model is not None:
+                joblib.dump(self.rating_model, base_path / "rating_model.pkl")
+            if self.clustering_model is not None:
+                joblib.dump(self.clustering_model, base_path / "location_clusters.pkl")
+            if self.scaler is not None:
+                joblib.dump(self.scaler, base_path / "scaler.pkl")
+            if self.label_encoders:
+                joblib.dump(self.label_encoders, base_path / "label_encoders.pkl")
+            print(f"Modelos salvos em: {base_path}")
+        except Exception as e:
+            print(f"Erro ao salvar modelos: {e}")
+
+    def load_models(self) -> None:
+        """Carrega modelos treinados do disco, se existirem."""
+        try:
+            from pathlib import Path
+            base_path = None
+            if self.config is not None:
+                base_path = self.config.get_model_path("base").parent
+            else:
+                base_path = Path("models")
+
+            rating_path = base_path / "rating_model.pkl"
+            cluster_path = base_path / "location_clusters.pkl"
+            scaler_path = base_path / "scaler.pkl"
+            enc_path = base_path / "label_encoders.pkl"
+
+            if rating_path.exists():
+                self.rating_model = joblib.load(rating_path)
+            if cluster_path.exists():
+                self.clustering_model = joblib.load(cluster_path)
+            if scaler_path.exists():
+                self.scaler = joblib.load(scaler_path)
+            if enc_path.exists():
+                self.label_encoders = joblib.load(enc_path)
+        except Exception as e:
+            print(f"Erro ao carregar modelos: {e}")
+
     def _calcular_distancia_luanda(self, lat: float, lon: float) -> float:
         """Calcula distância de Luanda (capital)."""
         from haversine import haversine
@@ -249,9 +344,9 @@ class MLRecommendationEngine:
         # Feature importance
         self.feature_importance['rating'] = dict(zip(features, self.rating_model.feature_importances_))
         
-        print(f"🎯 Modelo de rating treinado:")
-        print(f"   📊 R² Score: {r2:.3f}")
-        print(f"   📈 RMSE: {np.sqrt(mse):.3f}")
+        print(f"Modelo de rating treinado:")
+        print(f" R² Score: {r2:.3f}")
+        print(f" RMSE: {np.sqrt(mse):.3f}")
         
         return {
             'r2_score': r2,
@@ -269,11 +364,10 @@ class MLRecommendationEngine:
         Returns:
             Dicionário com informações dos clusters
         """
-        # Features para clustering
+        # Features para clustering (usar as mesmas 5 usadas na previsão)
         features_cluster = [
             'latitude', 'longitude', 'fragilidade', 'capacidade_diaria',
-            'taxa_aoa', 'sustentabilidade_score', 'atratividade_score',
-            'provincia_encoded', 'ecosistema_encoded'
+            'taxa_aoa'
         ]
         
         X_cluster = df_features[features_cluster].values
@@ -300,7 +394,7 @@ class MLRecommendationEngine:
                 'locais': cluster_data['nome'].tolist()
             }
         
-        print(f"🔍 {n_clusters} clusters de locais criados")
+        print(f"{n_clusters} clusters de locais criados")
         return cluster_info
     
     def sistema_recomendacao_colaborativo(self, df_usuarios: pd.DataFrame, 
@@ -394,7 +488,7 @@ class MLRecommendationEngine:
             Rating previsto (1-5)
         """
         if self.rating_model is None:
-            print("❌ Modelo de rating não treinado.")
+            print("Modelo de rating não treinado.")
             return 3.0
         
         local = self.df.iloc[local_id]
@@ -541,7 +635,7 @@ class MLRecommendationEngine:
         joblib.dump(self.scaler, f"{prefixo}_scaler.pkl")
         joblib.dump(self.label_encoders, f"{prefixo}_encoders.pkl")
         
-        print(f"💾 Modelos salvos com prefixo: {prefixo}")
+        print(f"Modelos salvos com prefixo: {prefixo}")
     
     def carregar_modelos(self, prefixo: str = "ml_models"):
         """Carrega modelos previamente treinados."""
@@ -551,16 +645,16 @@ class MLRecommendationEngine:
             self.scaler = joblib.load(f"{prefixo}_scaler.pkl")
             self.label_encoders = joblib.load(f"{prefixo}_encoders.pkl")
             
-            print(f"📂 Modelos carregados com sucesso")
+            print(f"Modelos carregados com sucesso")
             return True
         except Exception as e:
-            print(f"❌ Erro ao carregar modelos: {e}")
+            print(f"Erro ao carregar modelos: {e}")
             return False
 
 
 def main():
-    """Função principal para demonstrar o sistema de ML."""
-    print("🤖 SISTEMA DE MACHINE LEARNING PARA ECOTURISMO")
+    """Função principal só para demonstrar o sistema de ML basicamente.."""
+    print("SISTEMA DE MACHINE LEARNING PARA ECOTURISMO")
     print("="*60)
     
     # Inicializar motor de ML
@@ -571,23 +665,23 @@ def main():
         return
     
     # Criar features
-    print("\n🔧 Criando features para ML...")
+    print("\n Criando features para ML...")
     df_features = ml_engine.criar_features_engenharia()
     
     # Criar dados sintéticos de usuários
-    print("\n👥 Criando dados sintéticos de usuários...")
+    print("\nCriando dados sintéticos de usuários...")
     df_usuarios = ml_engine.criar_dados_sinteticos_usuarios(n_usuarios=500)
     
     # Treinar modelo de rating
-    print("\n🎯 Treinando modelo de rating...")
+    print("\nTreinando modelo de rating...")
     metrics = ml_engine.treinar_modelo_rating(df_usuarios)
     
     # Criar clusters
-    print("\n🔍 Criando clusters de locais...")
+    print("\nCriando clusters de locais...")
     cluster_info = ml_engine.criar_clusters_locais(df_features)
     
     # Exemplo de recomendação personalizada
-    print("\n🎯 Exemplo de recomendação personalizada...")
+    print("\nExemplo de recomendação personalizada...")
     user_profile = {
         'idade': 35,
         'orcamento_max': 25000,
@@ -604,16 +698,16 @@ def main():
     )
     
     # Mostrar resultados
-    print(f"\n📊 Resultados do ML:")
-    print(f"   🎯 R² Score do modelo: {metrics['r2_score']:.3f}")
-    print(f"   📈 RMSE: {metrics['rmse']:.3f}")
-    print(f"   🔍 Clusters criados: {len(cluster_info)}")
-    print(f"   🎯 Rotas personalizadas: {len(rotas_personalizadas)}")
+    print(f"\nResultados do ML:")
+    print(f"  R² Score do modelo: {metrics['r2_score']:.3f}")
+    print(f"   RMSE: {metrics['rmse']:.3f}")
+    print(f"   Clusters criados: {len(cluster_info)}")
+    print(f"   Rotas personalizadas: {len(rotas_personalizadas)}")
     
     # Salvar modelos
     ml_engine.salvar_modelos()
     
-    print("\n✅ Sistema de ML executado com sucesso!")
+    print("\nSistema de ML executado com sucesso!")
 
 
 if __name__ == "__main__":

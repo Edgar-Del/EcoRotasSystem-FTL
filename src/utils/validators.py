@@ -311,7 +311,7 @@ class DataValidator:
             # Validar score de sustentabilidade
             if 'sustentabilidade_score' in df.columns:
                 invalid_sustainability = df[
-                    (df['sustentabilidade_score'] < 0) | 
+                    (df['sustentabilidade_score'] < 1) | 
                     (df['sustentabilidade_score'] > self.max_fragilidade)
                 ]
                 if not invalid_sustainability.empty:

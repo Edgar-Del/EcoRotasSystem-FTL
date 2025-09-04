@@ -16,7 +16,15 @@ import pandas as pd
 import folium
 from streamlit_folium import st_folium
 import json
-from ecoturismo_system import EcoTurismoSystem
+import sys
+from pathlib import Path
+
+# Adicionar diretório raiz ao path para imports
+project_root = Path(__file__).parent.parent.parent
+sys.path.insert(0, str(project_root))
+
+from src.core.ecoturismo_system import EcoTurismoSystem
+from config.settings import get_config
 import plotly.express as px
 import plotly.graph_objects as go
 
@@ -34,7 +42,7 @@ def main():
     
     # Título principal
     st.title("🌍 EcoRota Angola")
-    st.subtitle("Sistema de Roteiro Inteligente de Ecoturismo Sustentável")
+    st.subheader("Sistema de Roteiro Inteligente de Ecoturismo Sustentável")
     
     st.markdown("""
     ### 🎯 Sobre o Sistema
