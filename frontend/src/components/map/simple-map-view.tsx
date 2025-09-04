@@ -1,12 +1,13 @@
 'use client'
 
+import { useState } from 'react'
 import { motion } from 'framer-motion'
 import { 
   MapIcon,
   ExclamationTriangleIcon,
   CurrencyDollarIcon,
   MapPinIcon,
-  RefreshIcon
+  ArrowPathIcon
 } from '@heroicons/react/24/outline'
 
 import { Route } from '@/types'
@@ -76,7 +77,7 @@ export function SimpleMapView({ routes }: SimpleMapViewProps) {
           {isLoading ? (
             <LoadingSpinner size="sm" />
           ) : (
-            <RefreshIcon className="w-5 h-5" />
+            <ArrowPathIcon className="w-5 h-5" />
           )}
           <span>Atualizar</span>
         </button>

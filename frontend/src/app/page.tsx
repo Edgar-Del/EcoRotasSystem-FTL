@@ -13,7 +13,7 @@ import {
 import { Header } from '@/components/layout/header'
 import { Hero } from '@/components/sections/hero'
 import { RouteGenerator } from '@/components/route-generator/route-generator'
-import { MapView } from '@/components/map/map-view'
+import { SimpleMapView } from '@/components/map/simple-map-view'
 import { StatsSection } from '@/components/sections/stats-section'
 import { FeaturesSection } from '@/components/sections/features-section'
 import { Footer } from '@/components/layout/footer'
@@ -74,7 +74,7 @@ export default function HomePage() {
               )}
               
               {activeTab === 'map' && (
-                <MapView routes={generatedRoutes} />
+                <SimpleMapView routes={generatedRoutes} />
               )}
               
               {activeTab === 'stats' && (
