@@ -15,7 +15,7 @@ Funcionalidades:
 - Logging estruturado
 
 Autor: Sistema EcoRota Angola
-Data: 2024
+Data: 2025
 """
 
 import sys
