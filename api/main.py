@@ -14,7 +14,7 @@ Funcionalidades:
 - Validação de dados com Pydantic
 - Logging estruturado
 
-Autor: Sistema EcoRota Angola
+Autor: Grupo 01 UNDP FTL
 Data: 2025
 """
 
@@ -37,8 +37,13 @@ from pydantic import BaseModel, Field, validator
 import uvicorn
 
 # Imports do sistema EcoRota
-from src.core.ecoturismo_system import EcoTurismoSystem
-from config.settings import get_config
+try:
+    from src.core.ecoturismo_system import EcoTurismoSystem
+    from config.settings import get_config
+    SYSTEM_AVAILABLE = True
+except ImportError as e:
+    logger.warning(f"Sistema EcoTurismo não disponível: {e}")
+    SYSTEM_AVAILABLE = False
 
 # Configurar logging
 logging.basicConfig(level=logging.INFO)
@@ -117,6 +122,12 @@ class HealthResponse(BaseModel):
 
 def get_ecoturismo_system() -> EcoTurismoSystem:
     """Dependency para obter instância do sistema."""
+    if not SYSTEM_AVAILABLE:
+        raise HTTPException(
+            status_code=status.HTTP_503_SERVICE_UNAVAILABLE,
+            detail="Sistema EcoTurismo não disponível"
+        )
+    
     global ecoturismo_system
     if ecoturismo_system is None:
         try:
@@ -425,14 +436,17 @@ async def startup_event():
     """Evento de inicialização da aplicação."""
     logger.info("Iniciando API EcoRota Angola...")
     
-    # Inicializar sistema
-    global ecoturismo_system
-    try:
-        ecoturismo_system = EcoTurismoSystem(use_ml=True)
-        ecoturismo_system.load_data()
-        logger.info("Sistema EcoTurismo inicializado com sucesso")
-    except Exception as e:
-        logger.error(f"Erro ao inicializar sistema: {e}")
+    if SYSTEM_AVAILABLE:
+        # Inicializar sistema
+        global ecoturismo_system
+        try:
+            ecoturismo_system = EcoTurismoSystem(use_ml=True)
+            ecoturismo_system.load_data()
+            logger.info("Sistema EcoTurismo inicializado com sucesso")
+        except Exception as e:
+            logger.error(f"Erro ao inicializar sistema: {e}")
+    else:
+        logger.warning("Sistema EcoTurismo não disponível - API funcionará em modo limitado")
 
 @app.on_event("shutdown")
 async def shutdown_event():
